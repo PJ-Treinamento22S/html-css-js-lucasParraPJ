@@ -1,0 +1,22 @@
+body{
+  margin: 0px;
+  justify-content: center;
+  border-width: 10px;
+  border-color: red;
+}
+
+#app {
+  display: flex;
+  background-color: #FFF96C;
+  width: 1440px;
+  height: 1024px;
+  margin: auto;
+  justify-content: center;
+}
+
+#oi{
+  width: 200px;
+  height: 200px;
+  background-color: pink;
+}
+
