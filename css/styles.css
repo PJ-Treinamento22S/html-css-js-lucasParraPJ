@@ -1,22 +1,33 @@
-body{
+body {
   margin: 0px;
   justify-content: center;
-  border-width: 10px;
-  border-color: red;
+  background-color: rgba(241, 177, 13, 0.4);
 }
 
-#app {
+#containerGeral {
   display: flex;
-  background-color: #FFF96C;
+  flex-direction: row;
+  background-color: #fff96c;
   width: 1440px;
   height: 1024px;
   margin: auto;
   justify-content: center;
 }
 
-#oi{
-  width: 200px;
-  height: 200px;
-  background-color: pink;
+.containerLateral {
+  height: 1024px;
+  width: 280px;
+  border-width: 3px;
+  border-color: red;
+  border: solid;
+  margin: 0px;
 }
 
+#containerCentral {
+  height: 1024px;
+  width: 880px;
+  border-width: 3px;
+  border-color: purple;
+  border: solid;
+  margin: 0px;
+}
