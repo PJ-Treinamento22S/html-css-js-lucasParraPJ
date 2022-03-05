@@ -1,22 +1,85 @@
-body{
+body {
   margin: 0px;
   justify-content: center;
-  border-width: 10px;
-  border-color: red;
+  background-color: rgba(241, 177, 13, 0.4);
 }
 
-#app {
+#containerGeral {
   display: flex;
-  background-color: #FFF96C;
-  width: 1440px;
-  height: 1024px;
+  flex-direction: row;
+  background-color: #fff96c;
+  width: 100%;
+  height: 100%;
   margin: auto;
   justify-content: center;
 }
 
-#oi{
-  width: 200px;
-  height: 200px;
-  background-color: pink;
+.containerLateral {
+  height: 100vh;
+  width: 280px;
+  border: 1px solid red;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
 }
 
+.containerLateral:first-child {
+  left: 0;
+}
+
+.containerLateral:last-child {
+  right: 0;
+}
+
+.containerCentral {
+  height: 100vh;
+  width: calc(100% - 560px);
+  border: 1px solid purple;
+  margin: 0px;
+}
+
+.textoPaginas {
+  text-decoration: none;
+  color: black;
+  font-size: 26px;
+  font-family: "Roboto", sans-serif;
+  height: 50px;
+}
+
+#containerPaginas {
+  margin-top: 16px;
+  margin-left: 80px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.paginasBotao {
+  display: flex;
+  width: 180px;
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0px;
+}
+
+#selecionada {
+  background-color: rgba(203, 124, 6, 0.4);
+  border: 1px solid rgba(203, 124, 6, 1);
+  border-radius: 32px;
+}
+
+.paginasBotao i {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+#patinho {
+  height: 69px;
+  width: 103px;
+  margin-top: 36px;
+}
