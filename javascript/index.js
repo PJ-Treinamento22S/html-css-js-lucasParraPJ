@@ -53,6 +53,7 @@ function criarPost(username, foto, conteudo, dataCriacao) {
   containerTextos.appendChild(conteudoPost);
 
   containerGeral.appendChild(botaoAjustes);
+  botaoAjustes.appendChild(iconeAjustes);
   containerGeral.appendChild(divIcones);
   divIcones.appendChild(botaoLike);
   divIcones.appendChild(botaoComentar);
@@ -61,8 +62,14 @@ function criarPost(username, foto, conteudo, dataCriacao) {
   botaoComentar.appendChild(iconeComentar);
   botaoCompartilhar.appendChild(iconeCompartilhar);
 
-  document.querySelector(".containerCentral").appendChild(containerGeral);
+  document
+    .querySelector(".containerCentral")
+    .insertBefore(
+      containerGeral,
+      document.querySelector(".containerCentral").children[2]
+    );
 }
+
 /*
 
 <div class="piu">
