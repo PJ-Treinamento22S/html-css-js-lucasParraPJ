@@ -1,7 +1,7 @@
 body {
   margin: 0px;
   justify-content: center;
-  background-color: rgba(241, 177, 13, 0.42);
+  background-color: #fff96c;
 }
 
 #containerGeral {
@@ -16,8 +16,7 @@ body {
 
 .containerLateral {
   height: 100vh;
-  width: 280px;
-  border: 1px solid red;
+  width: 14.5%;
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -26,18 +25,19 @@ body {
 }
 
 .containerLateral:first-child {
-  left: 0;
+  left: 11%;
 }
 
 .containerLateral:last-child {
-  right: 0;
+  right: 11%;
 }
 
 .containerCentral {
   height: 100vh;
-  width: calc(100% - 560px);
-  border: 1px solid purple;
+  width: 45%;
   margin: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .textoPaginas {
@@ -93,6 +93,7 @@ body {
   height: 9%;
   width: 24%;
   margin-top: 12%;
+  margin-right: 10%;
 }
 
 #containerBusca {
@@ -112,15 +113,16 @@ body {
   color: rgba(203, 124, 6, 1);
   padding-left: 20px;
   font-family: "Roboto", sans-serif;
+  outline: none;
 }
 
-::placeholder {
+#busca::placeholder {
   color: rgba(203, 124, 6, 1);
   opacity: 1;
 }
 
 #containerNoticias {
-  height: 38%;
+  height: auto;
   width: 80%;
   background-color: rgba(203, 124, 6, 0.42);
   border: 1px solid rgba(203, 124, 6, 1);
@@ -159,4 +161,165 @@ body {
   width: 35%;
   height: 100%;
   border-radius: 8px;
+}
+
+#titulo {
+  font-size: 36px;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  margin-left: 3%;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+
+#novoPiu {
+  width: 90%;
+  height: 16%;
+  background-color: rgba(203, 124, 6, 0.42);
+  border: 1px solid rgba(203, 124, 6, 1);
+  border-radius: 8px;
+  align-self: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  flex-shrink: 0;
+}
+
+.imgETexto {
+  display: flex;
+  flex-direction: row;
+  height: 55%;
+  margin-top: 2%;
+  margin-left: 4%;
+}
+
+.textosPosts {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.6%;
+}
+
+.textosPosts p {
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.textosPosts p:first-child {
+  color: rgba(203, 124, 6, 1);
+  margin: 1%;
+}
+
+#formNovoPiu {
+  margin-left: 1%;
+  margin-top: 3%;
+  width: 99%;
+}
+
+#conteudoNovoPiu {
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  font-family: "Roboto", sans-serif;
+  outline: none;
+  color: black;
+  width: 100%;
+}
+
+#conteudoNovoPiu::placeholder {
+  color: rgba(0, 0, 0, 0.56);
+}
+
+#cachorro {
+  height: 100%;
+  width: 12%;
+  border-radius: 50%;
+}
+
+#postarBotao {
+  width: 22%;
+  height: 25%;
+  background-color: rgba(203, 124, 6, 1);
+  color: white;
+  border: none;
+  border-radius: 32px;
+  align-self: flex-end;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  margin-right: 5%;
+  margin-top: 1%;
+}
+
+#postarBotao:hover {
+  background-color: rgba(223, 144, 26, 1);
+  cursor: pointer;
+}
+
+#postarBotao:active {
+  background-color: rgba(203, 124, 6, 1);
+}
+
+.piu {
+  width: 90%;
+  height: 16%;
+  background-color: rgba(203, 124, 6, 0.42);
+  border: 1px solid rgba(203, 124, 6, 1);
+  border-radius: 8px;
+  align-self: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+
+.fotoPerfil {
+  height: 100%;
+  width: 12%;
+  border-radius: 50%;
+}
+
+.conteudoPost {
+  color: black;
+  width: 99%;
+  margin-top: 3%;
+  margin-left: 1%;
+}
+
+.ajustesPosts {
+  position: relative;
+  bottom: 55%;
+  left: 94%;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  height: 15%;
+  width: 4%;
+  border: none;
+}
+
+.ajustesPosts i:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.interacoes {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  justify-content: space-between;
+  margin-left: 16%;
+}
+
+.interacoes button {
+  background: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.interacoes button i {
+  font-size: 22px;
+}
+
+.interacoes button i:hover {
+  color: white;
+  cursor: pointer;
 }
