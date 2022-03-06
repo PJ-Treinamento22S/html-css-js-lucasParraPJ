@@ -224,7 +224,7 @@ body {
   font-family: "Roboto", sans-serif;
   outline: none;
   color: black;
-  width: 100%;
+  width: 99%;
 }
 
 #conteudoNovoPiu::placeholder {
