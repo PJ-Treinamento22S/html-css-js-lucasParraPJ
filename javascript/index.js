@@ -2,9 +2,36 @@ function postar() {
   let conteudo = document.querySelector("#conteudoNovoPiu").value;
   if (conteudo.length != 0 && conteudo.length <= 140) {
     criarPost("lucas", "../imagens/cachorro.jpg", conteudo, "24 fev");
-    //criarPost(conteudo, user);
-  } else {
-    console.log("erro");
+  } else if(conteudo.length == 0){
+    let mensagem = document.createElement("p");
+    mensagem.classList.add("msgVazia");
+    mensagem.style.top = "23%"
+    mensagem.style.left = "48%"
+    mensagem.innerHTML = "Escreva algo antes de postar"
+    document.querySelector("#novoPiu").appendChild(mensagem)
+    setTimeout(() => mensagem.remove(), 2000)
+  }
+  else{
+    let mensagem = document.createElement("p");
+    mensagem.classList.add("msgVazia");
+    mensagem.style.top = "23%"
+    mensagem.style.left = "52%"
+    mensagem.innerHTML = "Texto muito longo"
+    document.querySelector("#novoPiu").appendChild(mensagem)
+    setTimeout(() => mensagem.remove(), 2000)
+  }
+  document.querySelector("#conteudoNovoPiu").value = "";
+}
+
+
+function contarCaracteres(){
+  let numeroCaracteres = document.querySelector("#conteudoNovoPiu").value.length;
+  document.querySelector("#contadorCaracter").innerHTML = `${numeroCaracteres}/140`
+  if(numeroCaracteres > 140){
+    document.querySelector("#contadorCaracter").style.color = "red"
+  }
+  else{
+    document.querySelector("#contadorCaracter").style.color = "rgba(203, 124, 6, 1)"
   }
 }
 
