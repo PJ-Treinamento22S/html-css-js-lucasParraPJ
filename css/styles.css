@@ -327,16 +327,27 @@ body {
 .interacoes button {
   background: rgba(0, 0, 0, 0);
   border: none;
+  display: flex;
+  flex-direction: row; 
 }
 
 .interacoes button i {
   font-size: 22px;
+  color: black;
 }
 
 .interacoes button i:hover {
   color: white;
   cursor: pointer;
 }
+
+.interacoes button p {
+  font-size: 22px;
+  align-self: baseline;
+  margin: 0 0 0 30%;
+  font-family: "Roboto", sans-serif;
+}
+
 
 .msgVazia{
   color: red;
