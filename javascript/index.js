@@ -1,5 +1,6 @@
 let qtdPosts = 0;
 let posts = [];
+let posicaoInsercao = 2;
 
 async function getData() {
   const response = await fetch(
@@ -59,11 +60,12 @@ function deletarPost(idPost) {
 function destacar(idPost) {
   const post = document.querySelector(`#${idPost}`);
   const user = post.firstChild.lastChild.firstChild.innerHTML
-    .split(".")[0]
+    .split(" . ")[0]
     .slice(1)
     .trim();
+
   const data = post.firstChild.lastChild.firstChild.innerHTML
-    .split(".")[1]
+    .split(" . ")[1]
     .trim();
   const conteudo = post.firstChild.lastChild.lastChild.innerHTML;
 
@@ -84,8 +86,81 @@ function destacar(idPost) {
     novoPost.lastChild.lastChild.firstChild.style.color = "rgb(203, 124, 6)";
   }
 
+  novoPost.children
+    .item(1)
+    .firstChild.firstChild.classList.remove("fa-arrow-up");
+  novoPost.children
+    .item(1)
+    .firstChild.firstChild.classList.add("fa-arrow-down");
+  novoPost.children.item(1).firstChild.removeAttribute("onclick");
+  novoPost.children
+    .item(1)
+    .firstChild.setAttribute(
+      "onclick",
+      `tirarDestacar("post-${qtdPosts - 1}")`
+    );
+
   novoPost.style.borderColor = "rgb(0,255,255)";
   novoPost.style.boxShadow = "0 0 10px rgb(0,255,255)";
+  post.remove();
+  posicaoInsercao += 1;
+}
+
+function tirarDestacar(idPost) {
+  const post = document.querySelector(`#${idPost}`);
+  const user = post.firstChild.lastChild.firstChild.innerHTML
+    .split(" . ")[0]
+    .slice(1)
+    .trim();
+  const data = post.firstChild.lastChild.firstChild.innerHTML
+    .split(" . ")[1]
+    .trim();
+  const conteudo = post.firstChild.lastChild.lastChild.innerHTML;
+
+  const foto = post.firstChild.firstChild.src;
+  criarPost(user, foto, conteudo, data, 0);
+  const likes = post.lastChild.firstChild.lastChild.innerHTML;
+  const comentarios = post.children.item(1).lastChild.innerHTML;
+  const compartilhamentos = post.lastChild.lastChild.lastChild.innerHTML;
+  const novoPost = document.querySelector(`#post-${qtdPosts - 1}`);
+
+  novoPost.lastChild.firstChild.lastChild.innerHTML = likes;
+  if (post.lastChild.firstChild.firstChild.style.color == "rgb(203, 124, 6)") {
+    novoPost.lastChild.firstChild.firstChild.style.color = "rgb(203, 124, 6)";
+  }
+
+  novoPost.lastChild.lastChild.lastChild.innerHTML = compartilhamentos;
+  if (post.lastChild.lastChild.firstChild.style.color == "rgb(203, 124, 6)") {
+    novoPost.lastChild.lastChild.firstChild.style.color = "rgb(203, 124, 6)";
+  }
+
+  if (
+    post.firstChild.lastChild.firstChild.innerHTML.split(".")[0].trim() ==
+    "@username123"
+  ) {
+    let botaoDelete = document.createElement("button");
+    let iconeDelete = document.createElement("i");
+    botaoDelete.classList.add("deletaPosts");
+    iconeDelete.classList.add("fa-x");
+    iconeDelete.classList.add("fa-solid");
+    botaoDelete.setAttribute("onclick", `deletarPost("post-${qtdPosts - 1}")`);
+    novoPost.appendChild(botaoDelete);
+    botaoDelete.appendChild(iconeDelete);
+    novoPost.children[1].appendChild(botaoDelete);
+  }
+
+  novoPost.style.borderColor = "rgba(203, 124, 6, 1)";
+  novoPost.style.boxShadow = "0";
+
+  document
+    .querySelector(".containerCentral")
+    .insertBefore(
+      novoPost,
+      document.querySelector(".containerCentral").children[posicaoInsercao]
+    );
+
+  posicaoInsercao -= 1;
+
   post.remove();
 }
 
@@ -151,16 +226,12 @@ function postar() {
   } else if (conteudo.length == 0) {
     let mensagem = document.createElement("p");
     mensagem.classList.add("msgVazia");
-    mensagem.style.top = "23%";
-    mensagem.style.left = "48%";
     mensagem.innerHTML = "Escreva algo antes de postar";
     document.querySelector("#novoPiu").appendChild(mensagem);
     setTimeout(() => mensagem.remove(), 2000);
   } else {
     let mensagem = document.createElement("p");
     mensagem.classList.add("msgVazia");
-    mensagem.style.top = "23%";
-    mensagem.style.left = "52%";
     mensagem.innerHTML = "Texto muito longo";
     document.querySelector("#novoPiu").appendChild(mensagem);
     setTimeout(() => mensagem.remove(), 2000);
@@ -212,7 +283,6 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
   let containerTextos = document.createElement("div");
   let userEDataCriacao = document.createElement("p");
   let conteudoPost = document.createElement("p");
-  let botaoAjustes = document.createElement("button");
   let iconeAjustes = document.createElement("i");
   let divIcones = document.createElement("div");
   let botaoLike = document.createElement("button");
@@ -226,6 +296,7 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
   let qtdLike = document.createElement("p");
   let qtdComentario = document.createElement("p");
   let qtdCompartilhar = document.createElement("p");
+  let divAcoes = document.createElement("div");
 
   fotoPerfil.src = foto;
   userEDataCriacao.innerText = `@${username} . ${dataCriacao}`;
@@ -253,6 +324,7 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
   iconeComentar.classList.add("fa-comment-dots");
   iconeCompartilhar.classList.add("fa-solid");
   iconeCompartilhar.classList.add("fa-retweet");
+  divAcoes.classList.add("acoes");
 
   botaoLike.setAttribute("id", `like-${qtdPosts}`);
   botaoLike.setAttribute("onclick", `like("like-${qtdPosts}")`);
@@ -264,21 +336,30 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
 
   containerGeral.appendChild(containerImgETexto);
   containerGeral.appendChild(botaoDestacar);
+  containerGeral.appendChild(divAcoes);
+  containerGeral.appendChild(divIcones);
+
   containerImgETexto.appendChild(fotoPerfil);
   containerImgETexto.appendChild(containerTextos);
+
   containerTextos.appendChild(userEDataCriacao);
   containerTextos.appendChild(conteudoPost);
 
-  containerGeral.appendChild(divIcones);
+  divAcoes.appendChild(botaoDestacar);
+
   divIcones.appendChild(botaoLike);
   divIcones.appendChild(botaoComentar);
   divIcones.appendChild(botaoCompartilhar);
+
   botaoLike.appendChild(iconeLike);
   botaoLike.appendChild(qtdLike);
+
   botaoComentar.appendChild(iconeComentar);
   botaoComentar.appendChild(qtdComentario);
+
   botaoCompartilhar.appendChild(iconeCompartilhar);
   botaoCompartilhar.appendChild(qtdCompartilhar);
+
   botaoDestacar.appendChild(iconeDestacar);
 
   if (meu == 1) {
@@ -290,13 +371,14 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
     botaoDelete.setAttribute("onclick", `deletarPost("post-${qtdPosts}")`);
     containerGeral.appendChild(botaoDelete);
     botaoDelete.appendChild(iconeDelete);
+    divAcoes.appendChild(botaoDelete);
   }
 
   document
     .querySelector(".containerCentral")
     .insertBefore(
       containerGeral,
-      document.querySelector(".containerCentral").children[2]
+      document.querySelector(".containerCentral").children[posicaoInsercao]
     );
   qtdPosts += 1;
 }

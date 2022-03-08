@@ -184,6 +184,7 @@ body {
   flex-direction: column;
   margin-bottom: 2%;
   flex-shrink: 0;
+  position: relative;
 }
 
 .imgETexto {
@@ -203,7 +204,7 @@ body {
 }
 
 .textosPosts {
-  width: 65%;
+  width: 68%;
   display: flex;
   flex-direction: column;
   margin-left: 0.6%;
@@ -219,6 +220,16 @@ body {
 .textosPosts p:first-child {
   color: rgba(203, 124, 6, 1);
   margin: 1%;
+}
+
+.acoes {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  top: 15px;
+  right: 30px;
 }
 
 #formNovoPiu {
@@ -307,15 +318,11 @@ body {
 }
 
 .destacaPosts {
-  position: absolute;
-  top: 10px;
-  left: 88%;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0);
-  height: 15%;
-  width: 4%;
+  height: 20px;
+  width: 20px;
   border: none;
-  z-index: 2;
 }
 
 .destacaPosts i:hover {
@@ -324,14 +331,12 @@ body {
 }
 
 .deletaPosts {
-  position: absolute;
-  top: 10px;
-  left: 94%;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0);
-  height: 15%;
-  width: 4%;
+  height: 20px;
+  width: 20px;
   border: none;
+  margin-left: 10px;
 }
 
 .deletaPosts i:hover {
@@ -376,7 +381,9 @@ body {
   position: absolute;
   font-size: 22px;
   font-family: "Roboto", sans-serif;
-  width: 20%;
+  width: 40%;
+  left: 35%;
+  bottom: 0px;
   animation: fade-out 2s;
 }
 
