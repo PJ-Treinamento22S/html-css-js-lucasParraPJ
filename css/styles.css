@@ -45,7 +45,7 @@ body {
   color: black;
   font-size: 26px;
   font-family: "Roboto", sans-serif;
-  height: 50px;
+  height: fit-content;
 }
 
 #containerPaginas {
@@ -174,7 +174,7 @@ body {
 
 #novoPiu {
   width: 90%;
-  height: 16%;
+  height: fit-content;
   background-color: rgba(203, 124, 6, 0.42);
   border: 1px solid rgba(203, 124, 6, 1);
   border-radius: 8px;
@@ -189,25 +189,26 @@ body {
 .imgETexto {
   display: flex;
   flex-direction: row;
-  height: 55%;
+  height: fit-content;
   margin-top: 2%;
   margin-left: 4%;
 }
 
-#contadorCaracter{
+#contadorCaracter {
   font-family: "Roboto", sans-serif;
-  margin-top: 6.5%;
+  margin-top: 8%;
   margin-right: 5%;
   font-size: 18px;
-  color: rgba(203, 124, 6, 1)
+  color: rgba(203, 124, 6, 1);
 }
 
 .textosPosts {
-  width: 100%;
+  width: 65%;
   display: flex;
   flex-direction: column;
   margin-left: 0.6%;
   padding: 0;
+  overflow-y: visible;
 }
 
 .textosPosts p {
@@ -235,7 +236,6 @@ body {
   color: black;
   margin-top: 1.5%;
   width: 99%;
-  
 }
 
 #conteudoNovoPiu::placeholder {
@@ -243,14 +243,15 @@ body {
 }
 
 #cachorro {
-  height: 100%;
+  height: 80px;
   width: 12%;
   border-radius: 50%;
+  border: 1px solid rgba(203, 124, 6, 1);
 }
 
 #postarBotao {
   width: 22%;
-  height: 25%;
+  height: 37px;
   background-color: rgba(203, 124, 6, 1);
   color: white;
   border: none;
@@ -259,7 +260,7 @@ body {
   font-size: 18px;
   font-family: "Roboto", sans-serif;
   margin-right: 5%;
-  margin-top: 1%;
+  margin-bottom: 10px;
 }
 
 #postarBotao:hover {
@@ -273,7 +274,8 @@ body {
 
 .piu {
   width: 90%;
-  height: 16%;
+  height: fit-content;
+  min-height: 160px;
   background-color: rgba(203, 124, 6, 0.42);
   border: 1px solid rgba(203, 124, 6, 1);
   border-radius: 8px;
@@ -283,26 +285,47 @@ body {
   flex-direction: column;
   margin-top: 2%;
   flex-shrink: 0;
+  position: relative;
 }
 
 .fotoPerfil {
-  height: 100%;
+  height: 80px;
   width: 12%;
   border-radius: 50%;
+  border: 1px solid rgba(203, 124, 6, 1);
 }
 
 .conteudoPost {
   color: black;
-  width: 80%;
+  width: 100%;
+  height: fit-content;
   margin-top: 4%;
   margin-left: 1%;
   margin-bottom: 0;
-  overflow: hidden;
+  overflow: wrap;
+  word-wrap: break-word;
 }
 
-.ajustesPosts {
-  position: relative;
-  bottom: 55%;
+.destacaPosts {
+  position: absolute;
+  top: 10px;
+  left: 88%;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0);
+  height: 15%;
+  width: 4%;
+  border: none;
+  z-index: 2;
+}
+
+.destacaPosts i:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.deletaPosts {
+  position: absolute;
+  top: 10px;
   left: 94%;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0);
@@ -311,7 +334,7 @@ body {
   border: none;
 }
 
-.ajustesPosts i:hover {
+.deletaPosts i:hover {
   cursor: pointer;
   color: white;
 }
@@ -322,13 +345,14 @@ body {
   width: 40%;
   justify-content: space-between;
   margin-left: 16%;
+  margin-top: 3.5%;
 }
 
 .interacoes button {
   background: rgba(0, 0, 0, 0);
   border: none;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
 }
 
 .interacoes button i {
@@ -337,7 +361,6 @@ body {
 }
 
 .interacoes button i:hover {
-  color: white;
   cursor: pointer;
 }
 
@@ -348,16 +371,20 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-
-.msgVazia{
+.msgVazia {
   color: red;
   position: absolute;
   font-size: 22px;
   font-family: "Roboto", sans-serif;
+  width: 20%;
   animation: fade-out 2s;
 }
 
-@keyframes fade-out{
-  from {opacity :1;}
-  to {opacity :0;}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
