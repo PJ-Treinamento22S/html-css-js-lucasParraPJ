@@ -1,7 +1,8 @@
-let qtdPosts = 0;
-let posts = [];
-let posicaoInsercao = 2;
+let qtdPosts = 0; // conta quantos posts existem
+let posts = []; // armazena os post que vieram do HTTP Request
+let posicaoInsercao = 2; // posicao da div containerCentral onde o post deve ser inserido quando criado
 
+// faz o HTTP request, armazena a resposta em posts e cria o post para cada elemento armazenado
 async function getData() {
   const response = await fetch(
     "https://api.json-generator.com/templates/BQZ3wDrI6ts0/data?access_token=n7lhzp6uj5oi5goj0h2qify7mi2o8wrmebe3n5ad"
@@ -23,6 +24,7 @@ async function getData() {
 
 getData();
 
+// recebe o mes em numero e devolve na abreviação
 function mesPort(mes) {
   switch (mes) {
     case "01":
@@ -52,30 +54,36 @@ function mesPort(mes) {
   }
 }
 
+// deleta o post cujo id foi passado
 function deletarPost(idPost) {
   const post = document.querySelector(`#${idPost}`);
   post.remove();
 }
 
+// a funcao destacar funciona deletando o post e criando ele de novo (mantendo o conteudo/foto/likes e etc)
+// pra jogar ele pro topo da pagina. Além disso, estiliza ele com uma borda ciano brilhante.
 function destacar(idPost) {
   const post = document.querySelector(`#${idPost}`);
-  const user = post.firstChild.lastChild.firstChild.innerHTML
+  const user = post.firstChild.lastChild.firstChild.innerHTML // pegando user da tag <p> dentro da div textosPosts
     .split(" . ")[0]
     .slice(1)
     .trim();
 
-  const data = post.firstChild.lastChild.firstChild.innerHTML
+  const data = post.firstChild.lastChild.firstChild.innerHTML // mesma coisa do user
     .split(" . ")[1]
     .trim();
-  const conteudo = post.firstChild.lastChild.lastChild.innerHTML;
-
+  const conteudo = post.firstChild.lastChild.lastChild.innerHTML; // mesma coisa dos anteriores, so que a div é conteudoPost
   const foto = post.firstChild.firstChild.src;
-  criarPost(user, foto, conteudo, data, 0);
+
+  criarPost(user, foto, conteudo, data, 0); // criando o novo post
+
+  // pegando as informações do post antigo que devem ser mantidas
   const likes = post.lastChild.firstChild.lastChild.innerHTML;
   const comentarios = post.children.item(1).lastChild.innerHTML;
   const compartilhamentos = post.lastChild.lastChild.lastChild.innerHTML;
   const novoPost = document.querySelector(`#post-${qtdPosts - 1}`);
 
+  // passando as informações que devem ser mantidas para o novo post e também mudandoa estilização dele
   novoPost.lastChild.firstChild.lastChild.innerHTML = likes;
   if (post.lastChild.firstChild.firstChild.style.color == "rgb(203, 124, 6)") {
     novoPost.lastChild.firstChild.firstChild.style.color = "rgb(203, 124, 6)";
@@ -106,6 +114,7 @@ function destacar(idPost) {
   posicaoInsercao += 1;
 }
 
+// segue o mesmo principio da destacar: deleta e cria um novo com as mesmas informações, jogando-o para baixo de qualquer outro destacado que exista
 function tirarDestacar(idPost) {
   const post = document.querySelector(`#${idPost}`);
   const user = post.firstChild.lastChild.firstChild.innerHTML
@@ -164,33 +173,21 @@ function tirarDestacar(idPost) {
   post.remove();
 }
 
-/*
-<div class="piu">
-          <div class="imgETexto">
-            <img src="../imagens/cachorro.jpg" class="fotoPerfil" />
-            <div class="textosPosts">
-              <p class="userEData">@username123.data</p>
-              <p class="conteudoPost">Conteudo post</p>
-            </div>
-          </div>
-          <button class="ajustesPosts"><i class="fa-solid fa-gear"></i></button>
-          <div class="interacoes">
-            <button><i class="fa-solid fa-thumbs-up"></i></button>
-            <button><i class="fa-solid fa-comment-dots"></i></button>
-            <button><i class="fa-solid fa-retweet"></i></button>
-          </div>
-        </div>
-
-*/
-
+// basicamente procura por perfiis cujo nome de usuario começa com as mesmas letras do input dado no forms de busca
+// caso ache, renderize apenas esses posts e delete os outros que estão presentes na tela
 function buscar(busca) {
+  // pega os pius
   const pius = Array.from(
     document.querySelector(".containerCentral").children
   ).slice(2);
+
+  // filtra de acordo com o input
   pius.forEach((piu) => piu.remove());
   let piusFiltrados = posts.filter(
     (piu) => piu.user.username.slice(0, busca.length) == busca
   );
+
+  // cria um post novo para cada piu que passou no filtro
   piusFiltrados
     .reverse()
     .forEach((piu) =>
@@ -212,12 +209,14 @@ function buscar(busca) {
   document.querySelector("#busca").value = "";
 }
 
+// preparando o forms para enviar o input e processar a funcao de busca quando se aperta enter nele
 document.querySelector("#busca").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     buscar(document.querySelector("#busca").value);
   }
 });
 
+// se o texto não estiver vazio ou muito longo, posta. Caso contrario, mostra uma mensagem flutuante de aviso para o usuario
 function postar() {
   let conteudo = document.querySelector("#conteudoNovoPiu").value;
   if (conteudo.length != 0 && conteudo.length <= 140) {
@@ -238,6 +237,8 @@ function postar() {
   }
 }
 
+// adiciona ao contador de likes e muda a cor do botão para mostrar que o usuario ja curtiu aquela publicacao
+// caso ele ja tenha curtido e aperte de novo, ele tira o like
 function like(id) {
   let botao = document.querySelector(`#${id}`);
   let likes = botao.lastChild;
@@ -250,6 +251,7 @@ function like(id) {
   }
 }
 
+// mesma coisa que o like, apenas visual (nao implementei criar o mesmo post tendo o usuario como autor)
 function rt(id) {
   let botao = document.querySelector(`#${id}`);
   let rt = botao.lastChild;
@@ -262,6 +264,8 @@ function rt(id) {
   }
 }
 
+// conta a quantidade de caracteres no novo post.
+// se for maior que 140, o contador fica vermelho
 function contarCaracteres() {
   let numeroCaracteres =
     document.querySelector("#conteudoNovoPiu").value.length;
@@ -276,6 +280,7 @@ function contarCaracteres() {
   }
 }
 
+// cria o post
 function criarPost(username, foto, conteudo, dataCriacao, meu) {
   let containerGeral = document.createElement("div");
   let containerImgETexto = document.createElement("div");
@@ -362,6 +367,7 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
 
   botaoDestacar.appendChild(iconeDestacar);
 
+  // se o post for do usuario, adicione um botao que permita ele deletar a postagem
   if (meu == 1) {
     let botaoDelete = document.createElement("button");
     let iconeDelete = document.createElement("i");
@@ -382,23 +388,3 @@ function criarPost(username, foto, conteudo, dataCriacao, meu) {
     );
   qtdPosts += 1;
 }
-
-/*
-
-<div class="piu">
-          <div class="imgETexto">
-            <img src="../imagens/cachorro.jpg" class="fotoPerfil" />
-            <div class="textosPosts">
-              <p class="userEData">@username123.data</p>
-              <p class="conteudoPost">Conteudo post</p>
-            </div>
-          </div>
-          <button class="ajustesPosts"><i class="fa-solid fa-gear"></i></button>
-          <div class="interacoes">
-            <button><i class="fa-solid fa-thumbs-up"></i></button>
-            <button><i class="fa-solid fa-comment-dots"></i></button>
-            <button><i class="fa-solid fa-retweet"></i></button>
-          </div>
-        </div>
-
-*/
